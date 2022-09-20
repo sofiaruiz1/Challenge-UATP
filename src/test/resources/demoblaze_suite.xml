@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="suite">
+
+    <test name="test suite">
+        <classes>
+            <class name="com.uatp.qa.challenge.demoblaze.SignUpTest" />
+        </classes>
+    </test>
+</suite>
