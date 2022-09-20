@@ -4,7 +4,8 @@
     <test name="test suite">
         <classes>
 <!--            <class name="com.uatp.qa.challenge.demoblaze.SignUpTest" />-->
-            <class name="com.uatp.qa.challenge.demoblaze.LoginTest" />
+<!--            <class name="com.uatp.qa.challenge.demoblaze.LoginTest" />-->
+            <class name="com.uatp.qa.challenge.demoblaze.ProductStoreTest"></class>
         </classes>
     </test>
 </suite>

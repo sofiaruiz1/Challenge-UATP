@@ -12,20 +12,28 @@ public class HomePage extends AbstractBasePage {
     private static final By SIGNUP_LINK = By.id("signin2");
     private static final By LOGIN_LINK = By.id("login2");
     private final By USERNAME_LOGGED = By.id("nameofuser");
+    private final By PHONE_CATEGORY = By.xpath("//a[text()  = 'Phones']");
+    private static By PHONE_NAME(String phoneName) {
+        String s = "//a[@class='hrefch' and  text() = \""+ phoneName +"\"]";
+        return By.xpath(s);
+    }
 
     private final SignUpModal signUpModal;
     private final LoginModal loginModal;
+    private final SelectedProduct selectedProduct;
 
     public HomePage(WebDriver webDriver, Duration timeout, Duration polling) {
         super(webDriver, timeout, polling);
         this.loginModal = new LoginModal();
         this.signUpModal = new SignUpModal();
+        this.selectedProduct = new SelectedProduct();
     }
 
     public HomePage(WebDriver webDriver) {
         super(webDriver);
         this.signUpModal = new SignUpModal();
         this.loginModal = new LoginModal();
+        this.selectedProduct = new SelectedProduct();
     }
 
     public SignUpModal clickOnSignUp() {
@@ -41,6 +49,17 @@ public class HomePage extends AbstractBasePage {
     public String getLoggedUserName() {
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_LOGGED));
        return this.webDriver.findElement(USERNAME_LOGGED).getText();
+    }
+    public HomePage clickOnPhoneCategory() {
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(PHONE_CATEGORY));
+        webDriver.findElement(PHONE_CATEGORY).click();
+        return this;
+    }
+
+    public SelectedProduct selectDesiredPhone(String phoneName) {
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(PHONE_NAME(phoneName)));
+        webDriver.findElement(PHONE_NAME(phoneName)).click();
+        return this.selectedProduct;
     }
 
 
@@ -97,6 +116,16 @@ public class HomePage extends AbstractBasePage {
             webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
             webDriver.findElement(LOGIN_BUTTON).click();
             return webDriver.switchTo().alert();
+        }
+
+    }
+
+    public class SelectedProduct {
+        private final By PRODUCT_NAME = By.xpath("//div[@id='tbodyid']/h2");
+
+        public String selectedProductName() {
+            webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(PRODUCT_NAME));
+            return webDriver.findElement(PRODUCT_NAME).getText();
         }
 
     }
