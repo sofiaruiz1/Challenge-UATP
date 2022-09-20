@@ -37,7 +37,6 @@ public class SignUpTest {
     }
 
     @Test
-    @Ignore
     public void verifySignUpAlreadyCreated() {
         WebDriverManager.chromedriver().setup();
         WebDriver webDriver = new ChromeDriver();
@@ -53,11 +52,14 @@ public class SignUpTest {
             Alert alert = signUpModal.clickSignUpButton();
             alert.accept();
 
+            webDriver.navigate().refresh();
             signUpModal = homePage.clickOnSignUp();
             signUpModal.enterUserName(emailAddress);
             signUpModal.enterPassword("Password1!");
             alert = signUpModal.clickSignUpButton();
-            assertEquals(alert.getText(), "This user already exist.");
+            String alertText = alert.getText();
+            alert.accept();
+            assertEquals(alertText, "This user already exist.");
         } finally {
             webDriver.close();
         }
