@@ -2,9 +2,12 @@ package com.uatp.qa.challenge.demoblaze;
 
 import com.uatp.qa.challenge.demoblaze.pageobjects.HomePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 
 public class SignUpTest {
 
@@ -16,9 +19,11 @@ public class SignUpTest {
 
         HomePage homePage = new HomePage(webDriver);
         HomePage.SignUpModal signUpModal = homePage.clickOnSignUp();
-        signUpModal.enterUserName("sofia.ruiz+test1@distillery.com");
+        signUpModal.enterUserName("sofia.ruiz+test3@distillery.com");
         signUpModal.enterPassword("Password1!");
-        signUpModal.clickSignUpButton();
+        Alert alert = signUpModal.clickSignUpButton();
+        assertEquals(alert.getText(), "Sign up successful.");
+
     }
 
 }
