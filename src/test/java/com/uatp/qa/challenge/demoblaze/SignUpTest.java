@@ -1,5 +1,6 @@
 package com.uatp.qa.challenge.demoblaze;
 
+import com.uatp.qa.challenge.demoblaze.pageobjects.HomePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,8 +11,11 @@ public class SignUpTest {
     @Test
     public void verifyHappyPathSignUp() {
         WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.demoblaze.com/");
+        WebDriver webDriver = new ChromeDriver();
+        webDriver.get("https://www.demoblaze.com/");
+
+        HomePage homePage = new HomePage(webDriver);
+        homePage.clickOnSignUp();
     }
 
 }
