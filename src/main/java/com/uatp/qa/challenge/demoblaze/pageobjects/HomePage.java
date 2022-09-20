@@ -39,17 +39,20 @@ public class HomePage extends AbstractBasePage {
 
         public void enterUserName(String userName) {
             webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_INPUT));
+            webDriver.findElement(USERNAME_INPUT).clear();
             webDriver.findElement(USERNAME_INPUT).sendKeys(userName);
         }
 
         public void enterPassword(String password) {
             webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(PASSWORD_INPUT));
+            webDriver.findElement(PASSWORD_INPUT).clear();
             webDriver.findElement(PASSWORD_INPUT).sendKeys(password);
         }
 
         public Alert clickSignUpButton() {
             webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(SIGNUP_BUTTON));
             webDriver.findElement(SIGNUP_BUTTON).click();
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
             return webDriver.switchTo().alert();
         }
     }

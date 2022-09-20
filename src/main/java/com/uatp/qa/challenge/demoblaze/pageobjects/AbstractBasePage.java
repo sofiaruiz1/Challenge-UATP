@@ -7,7 +7,7 @@ import java.time.Duration;
 
 public abstract class AbstractBasePage {
 
-    private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(5);
+    private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(10);
     private static final Duration DEFAULT_POLLING = Duration.ofMillis(100);
 
     protected final WebDriver webDriver;
