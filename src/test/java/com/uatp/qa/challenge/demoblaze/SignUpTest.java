@@ -15,7 +15,10 @@ public class SignUpTest {
         webDriver.get("https://www.demoblaze.com/");
 
         HomePage homePage = new HomePage(webDriver);
-        homePage.clickOnSignUp();
+        HomePage.SignUpModal signUpModal = homePage.clickOnSignUp();
+        signUpModal.enterUserName("sofia.ruiz+test1@distillery.com");
+        signUpModal.enterPassword("Password1!");
+        signUpModal.clickSignUpButton();
     }
 
 }
