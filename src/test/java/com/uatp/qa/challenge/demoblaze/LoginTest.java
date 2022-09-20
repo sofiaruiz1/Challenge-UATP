@@ -42,6 +42,39 @@ public class LoginTest {
         }
     }
 
+    @Test
+    public void verifyLogInWithWrongPassword() {
+        WebDriverManager.chromedriver().setup();
+        WebDriver webDriver = new ChromeDriver();
+
+        try {
+            webDriver.get("https://www.demoblaze.com/");
+            Faker faker = new Faker();
+            String emailAddress = faker.internet().emailAddress();
+            HomePage homePage = new HomePage(webDriver);
+
+            HomePage.SignUpModal signUpModal = homePage.clickOnSignUp();
+            signUpModal.enterUserName(emailAddress);
+            signUpModal.enterPassword("Password1!");
+            Alert alert = signUpModal.clickSignUpButton();
+            alert.accept();
+            webDriver.navigate().refresh();
+
+            HomePage.LoginModal loginModal = homePage.clickOnLogIn();
+            loginModal.enterUserName(emailAddress);
+            loginModal.enterPassword("Password2!");
+
+            Alert alertLogin = loginModal.clickLogInButtonToAlert();
+
+            String alertText = alertLogin.getText();
+            alert.accept();
+            assertEquals(alertText, "Wrong password.");
+
+        } finally {
+            webDriver.close();
+        }
+    }
+
 
 
 

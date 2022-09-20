@@ -93,6 +93,11 @@ public class HomePage extends AbstractBasePage {
             webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
             webDriver.findElement(LOGIN_BUTTON).click();
         }
+        public Alert clickLogInButtonToAlert() {
+            webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
+            webDriver.findElement(LOGIN_BUTTON).click();
+            return webDriver.switchTo().alert();
+        }
 
     }
 }
