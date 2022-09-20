@@ -20,6 +20,7 @@ public class HomePage extends AbstractBasePage {
         return By.xpath(s);
     }
     private final By CART_LINK = By.xpath("//a[text() = 'Cart']");
+    private final By PLACE_ORDER_BTN = By.xpath("//button[text() = 'Place Order']");
 
 
 
@@ -27,6 +28,9 @@ public class HomePage extends AbstractBasePage {
     private final LoginModal loginModal;
     private final SelectedProduct selectedProduct;
     public final CartPage cartPage;
+    public final PlaceOrderModal placeOrderModal;
+    public final SuccessOrder successOrder;
+
 
     public HomePage(WebDriver webDriver, Duration timeout, Duration polling) {
         super(webDriver, timeout, polling);
@@ -34,6 +38,8 @@ public class HomePage extends AbstractBasePage {
         this.signUpModal = new SignUpModal();
         this.selectedProduct = new SelectedProduct();
         this.cartPage = new CartPage();
+        this.placeOrderModal = new PlaceOrderModal();
+        this.successOrder = new SuccessOrder();
     }
 
     public HomePage(WebDriver webDriver) {
@@ -42,6 +48,8 @@ public class HomePage extends AbstractBasePage {
         this.loginModal = new LoginModal();
         this.selectedProduct = new SelectedProduct();
         this.cartPage = new CartPage();
+        this.placeOrderModal = new PlaceOrderModal();
+        this.successOrder = new SuccessOrder();
     }
 
     public SignUpModal clickOnSignUp() {
@@ -79,6 +87,12 @@ public class HomePage extends AbstractBasePage {
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(CART_LINK));
         webDriver.findElement(CART_LINK).click();
         return this.cartPage;
+    }
+
+    public PlaceOrderModal clickOnPLaceOrder() {
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(PLACE_ORDER_BTN));
+        webDriver.findElement(PLACE_ORDER_BTN).click();
+        return this.placeOrderModal;
     }
 
 
@@ -157,7 +171,7 @@ public class HomePage extends AbstractBasePage {
 
     }
 
-    //This class should be a new class from other page object, but I had an error I couldn't resolve
+    //This classes should be a new class from other page object, but I had an error I couldn't resolve
     public class CartPage {
         private final By PRODUCT_NAME_IN_CART = By.xpath("//tbody[@id='tbodyid']/tr/td[2]");
         private final By DELETE_LINK = By.xpath("//a[text() = 'Delete']");
@@ -175,6 +189,37 @@ public class HomePage extends AbstractBasePage {
         public Dimension getNumberOfProductsAdded() {
             return webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(GET_ALL_PRODUCTS_ADDED)).getSize();
 
+        }
+    }
+
+    public class PlaceOrderModal {
+
+        private final By NAME_INPUT = By.id("name");
+        private final By COUNTRY_INPUT = By.id("country");
+        private final By CITY_INPUT = By.id("city");
+        private final By CREDIT_CARD_INPUT = By.id("card");
+        private final By MONTH_INPUT = By.id("month");
+        private final By YEAR_INPUT = By.id("year");
+        private final By PURCHASE_BUTTON = By.xpath("//button[text() = 'Purchase']");
+
+        public SuccessOrder completePurchaseForm(String name, String country, String city, String card, String month, String year) {
+            webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(NAME_INPUT));
+            webDriver.findElement(NAME_INPUT).sendKeys(name);
+            webDriver.findElement(COUNTRY_INPUT).sendKeys(country);
+            webDriver.findElement(CITY_INPUT).sendKeys(city);
+            webDriver.findElement(CREDIT_CARD_INPUT).sendKeys(card);
+            webDriver.findElement(MONTH_INPUT).sendKeys(month);
+            webDriver.findElement(YEAR_INPUT).sendKeys(year);
+            webDriver.findElement(PURCHASE_BUTTON).click();
+            return successOrder;
+        }
+    }
+    public class SuccessOrder {
+        private final By SUCCESS_TITLE = By.xpath("//h2[text() = 'Thank you for your purchase!']");
+
+        public String getSuccessTitle() {
+            webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(SUCCESS_TITLE));
+            return webDriver.findElement(SUCCESS_TITLE).getText();
         }
     }
 }
