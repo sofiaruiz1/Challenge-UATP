@@ -5,7 +5,8 @@
         <classes>
 <!--            <class name="com.uatp.qa.challenge.demoblaze.SignUpTest" />-->
 <!--            <class name="com.uatp.qa.challenge.demoblaze.LoginTest" />-->
-            <class name="com.uatp.qa.challenge.demoblaze.ProductStoreTest"></class>
+<!--            <class name="com.uatp.qa.challenge.demoblaze.ProductStoreTest"></class>-->
+            <class name="com.uatp.qa.challenge.demoblaze.CartTest"></class>
         </classes>
     </test>
 </suite>

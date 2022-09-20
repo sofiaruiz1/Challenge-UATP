@@ -24,9 +24,28 @@ public class ProductStoreTest {
             String phoneName = "Nexus 6";
             HomePage homePage = new HomePage(webDriver);
             homePage.clickOnPhoneCategory();
-            HomePage.SelectedProduct selectedProduct =  homePage.selectDesiredPhone(phoneName);
+            HomePage.SelectedProduct selectedProduct =  homePage.selectDesiredProductByName(phoneName);
 
             assertEquals(selectedProduct.selectedProductName(), phoneName, "The searched product was founded");
+        } finally {
+            webDriver.close();
+        }
+    }
+
+    @Test
+    public void searchByLaptopName() {
+        WebDriverManager.chromedriver().setup();
+        WebDriver webDriver = new ChromeDriver();
+
+        try {
+            webDriver.get("https://www.demoblaze.com/");
+
+            String laptopName = "MacBook air";
+            HomePage homePage = new HomePage(webDriver);
+            homePage.clickOnLaptopCategory();
+            HomePage.SelectedProduct selectedProduct =  homePage.selectDesiredProductByName(laptopName);
+
+            assertEquals(selectedProduct.selectedProductName(), laptopName, "The searched product was founded");
         } finally {
             webDriver.close();
         }
